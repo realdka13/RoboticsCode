@@ -8,11 +8,13 @@ public final class Constants
 {
     public static final class DriveTrain
     {
-        //public static final int LEFT_TALON = 0;
-        //public static final int RIGHT_TALON = 1;
-        //public static final int ELEVATOR_TALON = 2;
+        //Objects
+        public static final int LEFT_SPARK = 0;
+        public static final int RIGHT_SPARK = 1;
 
+        //Settings
         public static final boolean SQUARE_INPUTS = true;
         public static final float DEADBAND = 0.02f;
+        public static final float SLEWRATE = 3.5f;
     }
 }

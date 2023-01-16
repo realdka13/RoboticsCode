@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -17,8 +18,8 @@ public class Drivetrain extends SubsystemBase {
   private static final double kWheelDiameterInch = 2.75591; // 70 mm
 
   //*****The Romi has the left and right motors set to PWM channels 0 and 1 respectively*****
-  private final Spark leftMotor = new Spark(0);
-  private final Spark rightMotor = new Spark(1);
+  private final Spark leftMotor = new Spark(Constants.DriveTrain.LEFT_SPARK);
+  private final Spark rightMotor = new Spark(Constants.DriveTrain.RIGHT_SPARK);
 
   //*****The Romi has onboard encoders that are hardcoded to use DIO pins 4/5 and 6/7 for the left and right*****
   private final Encoder leftEncoder = new Encoder(4, 5);
@@ -30,6 +31,9 @@ public class Drivetrain extends SubsystemBase {
   //*****Built in components*****
   private final RomiGyro gyro = new RomiGyro();
   private final BuiltInAccelerometer accelerometer = new BuiltInAccelerometer();
+
+  //*****Filter*****
+  SlewRateLimiter filter = new SlewRateLimiter(Constants.DriveTrain.SLEWRATE);
 
   //*****Constructor*****
   public Drivetrain()
@@ -45,12 +49,12 @@ public class Drivetrain extends SubsystemBase {
 
   public void arcadeDrive(double xaxisSpeed, double zaxisRotate)
   {
-    diffDrive.arcadeDrive(xaxisSpeed, zaxisRotate);
+    diffDrive.arcadeDrive(filter.calculate(xaxisSpeed), zaxisRotate);
   }
 
   public void tankDrive(double leftSpeed, double rightSpeed)
   {
-    diffDrive.tankDrive(leftSpeed, rightSpeed, Constants.DriveTrain.SQUARE_INPUTS);
+    diffDrive.tankDrive(filter.calculate(leftSpeed), filter.calculate(rightSpeed), Constants.DriveTrain.SQUARE_INPUTS);
   }
 
   public void resetEncoders()
