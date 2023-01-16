@@ -4,23 +4,19 @@
 
 package frc.robot.commands;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain_SUB;
+import frc.robot.subsystems.Manipulator;
 
-public class TankDrive_CMD extends CommandBase {
-  private DriveTrain_SUB driveTrain;
-  private Supplier<Double> leftSpeedSupplier;
-  private Supplier<Double> rightSpeedSupplier;
+public class OpenClaw_CMD extends CommandBase {
 
+  Manipulator manipulator;
 
-  /** Creates a new TankDrive_CMD. */
-  public TankDrive_CMD(DriveTrain_SUB driveTrain, Supplier<Double> leftSpeedSupplier, Supplier<Double> rightSpeedSupplier)
+  /** Creates a new OpenClaw_CMD. */
+  public OpenClaw_CMD(Manipulator manipulator)
   {
-    this.driveTrain = driveTrain;
-    this.leftSpeedSupplier = leftSpeedSupplier;
-    this.rightSpeedSupplier = rightSpeedSupplier;
+    this.manipulator = manipulator;
+
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -31,8 +27,7 @@ public class TankDrive_CMD extends CommandBase {
   @Override
   public void execute()
   {
-    System.out.println("Execute Called");
-    driveTrain.Drive(leftSpeedSupplier.get(), rightSpeedSupplier.get());
+    manipulator.OpenClaw();
   }
 
   // Called once the command ends or is interrupted.

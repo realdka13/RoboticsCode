@@ -10,29 +10,29 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveTrain_SUB extends SubsystemBase {
-  private Talon lefTalon;
-  private Talon rightTalon;
 
-  private DifferentialDrive driveTrain;
-  
+  //*****Drive Train Componenets*****
+  private Talon lefTalon = new Talon(Constants.DriveTrainConst.LEFT_TALON);
+  private Talon rightTalon = new Talon(Constants.DriveTrainConst.RIGHT_TALON);
+
+  private DifferentialDrive driveTrain = new DifferentialDrive(lefTalon, rightTalon);;
+  //*********************************
+
   //Constructor
   public DriveTrain_SUB()
   {
-    lefTalon = new Talon(Constants.DriveTrain.LEFT_TALON);
-    rightTalon = new Talon(Constants.DriveTrain.RIGHT_TALON);
-
     //Invert left motor
     lefTalon.setInverted(true);
 
-    driveTrain = new DifferentialDrive(lefTalon, rightTalon);
+    //Set Deadband
+    driveTrain.setDeadband(Constants.DriveTrainConst.DEADBAND);
   }
 
   //Drive with Square Inputs
   public void Drive(double leftSpeed, double rightSpeed)
   {
-    //driveTrain.tankDrive(leftSpeed, rightSpeed, Constants.DriveTrain.SQUARE_INPUTS);
     System.out.println("Drive Called");
-    driveTrain.tankDrive(leftSpeed, rightSpeed);
+    driveTrain.tankDrive(leftSpeed, rightSpeed, Constants.DriveTrainConst.SQUARE_INPUTS);
   }
 
   // This method will be called once per scheduler run

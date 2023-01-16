@@ -14,13 +14,19 @@ package frc.robot;
  */
 public final class Constants
 {
-    public static final class DriveTrain
+    public static final class DriveTrainConst
     {
         public static final int LEFT_TALON = 0;
         public static final int RIGHT_TALON = 1;
-        public static final int ELEVATOR_TALON = 2;
 
         public static final boolean SQUARE_INPUTS = false;
         public static final float DEADBAND = 0.02f;
+    }
+
+    public static final class ManipulatorConst
+    {
+        public static final int ELEVATOR_JAGUAR = 2;
+        public static final int CLAW_FORWARD = 0;
+        public static final int CLAW_REVERSE = 1;
     }
 }

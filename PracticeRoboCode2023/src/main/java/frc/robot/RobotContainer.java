@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.TankDrive_CMD;
 import frc.robot.subsystems.DriveTrain_SUB;
-//import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Manipulator;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -18,11 +18,15 @@ import frc.robot.subsystems.DriveTrain_SUB;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
+   //*******Controllers*******
   private final Joystick leftJoystick = new Joystick(0);
   private final Joystick rightJoystick = new Joystick(1);
+  //**************************
 
+   //*****Robot Subsystems*****
   private final DriveTrain_SUB driveTrain = new DriveTrain_SUB();
+  private final Manipulator manipulator = new Manipulator();
+  //**************************
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -40,7 +44,15 @@ public class RobotContainer {
    */
   private void configureButtonBindings()
   {
+    //Drive Controls
     driveTrain.setDefaultCommand(new TankDrive_CMD(driveTrain, () -> leftJoystick.getY(), () -> rightJoystick.getY()));
+    
+    //Manipulator Controls
+    //rightJoystick.getRawButton(3)
+    //rightJoystick.getRawButton(2)
+
+    //rightJoystick.getRawButton(4)
+    //rightJoystick.getRawButton(5)
   }
 
 
