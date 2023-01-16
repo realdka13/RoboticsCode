@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.Constants;
 import frc.robot.sensors.RomiGyro;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -34,6 +35,7 @@ public class Drivetrain extends SubsystemBase {
   public Drivetrain()
   {
     rightMotor.setInverted(true);
+    diffDrive.setDeadband(Constants.DriveTrain.DEADBAND);
 
     //*****Use inches as unit for encoder distances*****
     leftEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
@@ -44,6 +46,11 @@ public class Drivetrain extends SubsystemBase {
   public void arcadeDrive(double xaxisSpeed, double zaxisRotate)
   {
     diffDrive.arcadeDrive(xaxisSpeed, zaxisRotate);
+  }
+
+  public void tankDrive(double leftSpeed, double rightSpeed)
+  {
+    diffDrive.tankDrive(leftSpeed, rightSpeed, Constants.DriveTrain.SQUARE_INPUTS);
   }
 
   public void resetEncoders()
